@@ -1,0 +1,15 @@
+- name: install required s/w
+  yum:
+    name: "{{item.name}}"
+    state: present
+  loop: "{{packages}}"
+
+- name: start tomcat services
+  service: 
+    name: tomcat
+    state: started
+
+- name: copy war file to webapps folder
+  copy:
+    src: /home/ansible/gameoflife.war
+    dest: /var/lib/tomcat/webapps/
